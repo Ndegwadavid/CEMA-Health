@@ -1,5 +1,9 @@
+import random
+import string
 from django.db import models
 from django.core.validators import RegexValidator, MinValueValidator, MaxValueValidator
+from django.utils import timezone
+from programs.models import Program
 
 class Client(models.Model):
     first_name = models.CharField(max_length=50)
@@ -24,3 +28,26 @@ class Client(models.Model):
 
     class Meta:
         ordering = ['last_name', 'first_name']
+
+class Enrollment(models.Model):
+    client = models.ForeignKey(Client, on_delete=models.CASCADE, related_name='enrollments')
+    program = models.ForeignKey(Program, on_delete=models.CASCADE, related_name='enrollments')
+    enrollment_id = models.CharField(max_length=50, unique=True, editable=False)
+    enrolled_at = models.DateTimeField(auto_now_add=True)
+
+    def generate_enrollment_id(self):
+        year = timezone.now().year
+        random_chars = ''.join(random.choices(string.ascii_letters + string.digits, k=8))
+        return f"{self.program.short_code}/{year}/{random_chars}"
+
+    def save(self, *args, **kwargs):
+        if not self.enrollment_id:
+            self.enrollment_id = self.generate_enrollment_id()
+        super().save(*args, **kwargs)
+
+    def __str__(self):
+        return f"{self.client} in {self.program} ({self.enrollment_id})"
+
+    class Meta:
+        unique_together = ('client', 'program')
+        ordering = ['enrolled_at']

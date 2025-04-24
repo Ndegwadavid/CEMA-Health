@@ -1,5 +1,5 @@
 from django.contrib import admin
-from .models import Client
+from .models import Client, Enrollment
 
 @admin.register(Client)
 class ClientAdmin(admin.ModelAdmin):
@@ -12,3 +12,11 @@ class ClientAdmin(admin.ModelAdmin):
             'fields': ('first_name', 'last_name', 'age', 'phone_number', 'area_of_residence', 'profession')
         }),
     )
+
+@admin.register(Enrollment)
+class EnrollmentAdmin(admin.ModelAdmin):
+    list_display = ('enrollment_id', 'client', 'program', 'enrolled_at')
+    search_fields = ('enrollment_id', 'client__first_name', 'client__last_name', 'program__name')
+    list_filter = ('program', 'enrolled_at')
+    raw_id_fields = ('client', 'program')  # Improves performance for large datasets
+    readonly_fields = ('enrollment_id', 'enrolled_at')

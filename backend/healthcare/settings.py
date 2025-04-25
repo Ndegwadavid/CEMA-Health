@@ -26,6 +26,7 @@ INSTALLED_APPS = [
     'django.contrib.sessions',
     'django.contrib.messages',
     'django.contrib.staticfiles',
+    'corsheaders',
     'rest_framework',
     'rest_framework_simplejwt',
     'rest_framework_simplejwt.token_blacklist',
@@ -35,6 +36,7 @@ INSTALLED_APPS = [
 ]
 
 MIDDLEWARE = [
+    'corsheaders.middleware.CorsMiddleware',
     'django.middleware.security.SecurityMiddleware',
     'django.contrib.sessions.middleware.SessionMiddleware',
     'django.middleware.common.CommonMiddleware',
@@ -72,6 +74,12 @@ DATABASES = {
     }
 }
 
+# Authentication
+AUTHENTICATION_BACKENDS = [
+    'healthcare.auth_backends.EmailBackend',
+    'django.contrib.auth.backends.ModelBackend',
+]
+
 # REST Framework
 REST_FRAMEWORK = {
     'DEFAULT_AUTHENTICATION_CLASSES': [
@@ -92,6 +100,21 @@ SIMPLE_JWT = {
     'UPDATE_LAST_LOGIN': False,
     'TOKEN_BLACKLIST_ENABLED': True,
 }
+
+# Email settings Mailpit
+EMAIL_BACKEND = 'django.core.mail.backends.smtp.EmailBackend'
+EMAIL_HOST = 'localhost'
+EMAIL_PORT = 1025
+EMAIL_USE_TLS = False
+EMAIL_USE_SSL = False
+EMAIL_HOST_USER = ''
+EMAIL_HOST_PASSWORD = ''
+DEFAULT_FROM_EMAIL = 'no-reply@healthcare.local'
+
+# CORS
+CORS_ALLOWED_ORIGINS = [
+    'http://localhost:3000',
+]
 
 # Security settings for production
 SECURE_SSL_REDIRECT = False  # Set to True in production

@@ -23,7 +23,7 @@ class CustomTokenObtainPairView(TokenObtainPairView):
         # Trigger login notification
         ip_address = request.META.get('REMOTE_ADDR', 'Unknown')
         timestamp = datetime.now(timezone.utc).strftime('%Y-%m-%d %H:%M:%S %Z')  # Fixed: Use datetime.timezone.utc
-        subject = 'Admin Login Notification'
+        subject = 'Account Login Notification'
         message = f"""
         Dear {user.get_full_name() or user.username},
 

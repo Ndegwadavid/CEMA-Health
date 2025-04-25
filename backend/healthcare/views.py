@@ -7,7 +7,7 @@ from .serializers import CustomTokenObtainPairSerializer
 from django.contrib.auth import user_logged_in
 from django.core.mail import send_mail
 from django.utils import timezone
-from datetime import datetime, timezone  # Import timezone from datetime
+from datetime import datetime, timezone  # Imported timezone from datetime
 
 class CustomTokenObtainPairView(TokenObtainPairView):
     serializer_class = CustomTokenObtainPairSerializer

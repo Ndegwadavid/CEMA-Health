@@ -3,15 +3,23 @@ from .models import Client, Enrollment
 
 @admin.register(Client)
 class ClientAdmin(admin.ModelAdmin):
-    list_display = ('first_name', 'last_name', 'age', 'phone_number', 'area_of_residence', 'profession', 'created_at')
+    list_display = ('first_name', 'last_name', 'age', 'phone_number', 'area_of_residence', 'profession', 'get_enrolled_programs', 'created_at')
     search_fields = ('first_name', 'last_name', 'phone_number')
-    list_filter = ('area_of_residence', 'created_at')
+    list_filter = ('area_of_residence', 'created_at', 'enrollments__program')
     ordering = ('last_name', 'first_name')
     fieldsets = (
-        (None, {
-            'fields': ('first_name', 'last_name', 'age', 'phone_number', 'area_of_residence', 'profession')
+        ('Personal Information', {
+            'fields': ('first_name', 'last_name', 'age', 'phone_number')
+        }),
+        ('Additional Details', {
+            'fields': ('area_of_residence', 'profession')
         }),
     )
+    readonly_fields = ('created_at', 'updated_at')
+
+    def get_enrolled_programs(self, obj):
+        return ", ".join([f"{enrollment.program.name} ({enrollment.enrollment_id})" for enrollment in obj.enrollments.all()])
+    get_enrolled_programs.short_description = 'Enrolled Programs'
 
 @admin.register(Enrollment)
 class EnrollmentAdmin(admin.ModelAdmin):

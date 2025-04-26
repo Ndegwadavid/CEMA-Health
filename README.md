@@ -4,12 +4,10 @@ A comprehensive healthcare management system that helps doctors create health pr
 
 ![HealthConnect Dashboard](/frontend/frontend/public/assets/images/analytics.png)
 
-### Proof of Concept Video
+### Demo video
 
-<video width="100%" controls>
-  <source src="/frontend/frontend/public/assets/poc/POC.mp4" type="video/mp4">
-  Your browser does not support the video tag.
-</video>
+[Watch on YouTube](https://youtu.be/mEiXFp0eBFg?si=Z-0uBVEB1VwztFlL)
+
 
 ## Overview
 

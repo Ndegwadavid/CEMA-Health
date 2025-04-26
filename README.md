@@ -8,6 +8,16 @@ A comprehensive healthcare management system that helps doctors create health pr
 
 [Watch on YouTube](https://youtu.be/mEiXFp0eBFg?si=Z-0uBVEB1VwztFlL)
 
+### youtube link 👇
+
+https://youtu.be/mEiXFp0eBFg?si=Z-0uBVEB1VwztFlL
+
+
+
+### powerpoint link 👇
+[Powerpoint Presentation ](https://docs.google.com/presentation/d/1ggoKZxfkphdQfY-1fUcAB4cq6Xwo8b02/edit?usp=sharing&ouid=100736522624546505150&rtpof=true&sd=true)
+
+https://docs.google.com/presentation/d/1ggoKZxfkphdQfY-1fUcAB4cq6Xwo8b02/edit?usp=sharing&ouid=100736522624546505150&rtpof=true&sd=true
 
 ## Overview
 

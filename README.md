@@ -119,6 +119,17 @@ npm install
 npm start
 ```
 
+4. Setup the mailpit server
+
+```
+on terminal run 👇
+./mailpit
+{if installed}
+If not instructions to install found online.
+```
+## Install mailpit
+https://mailpit.axllent.org/docs/install/
+
 Visit `http://localhost:3000` to access the application.
 
 ## Enrollment ID System

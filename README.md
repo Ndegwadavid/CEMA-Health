@@ -4,9 +4,12 @@ A comprehensive healthcare management system that helps doctors create health pr
 
 ![HealthConnect Dashboard](/frontend/frontend/public/assets/images/analytics.png)
 
-## Demo
+### Proof of Concept Video
 
-![youtube link](https://youtube.com)
+<video width="100%" controls>
+  <source src="/frontend/frontend/public/assets/poc/POC.mp4" type="video/mp4">
+  Your browser does not support the video tag.
+</video>
 
 ## Overview
 
@@ -53,7 +56,7 @@ Client Management Interface
 
 ![Program Creation Interface]
 
-(![Client Management Interface](/frontend/frontend/public/assets/images/programm.png)
+![Client Management Interface](/frontend/frontend/public/assets/images/programm.png)
 
 ### Backend
 - Django framework for robust application structure

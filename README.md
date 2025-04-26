@@ -1,163 +1,150 @@
-# Healthcare System Backend
+# HealthConnect
 
-A Django-based backend for managing healthcare clients, programs, and enrollments. The system features JWT authentication, email notifications for login events, and a comprehensive RESTful API.
+A comprehensive healthcare management system that helps doctors create health programs, manage clients, and analyze healthcare data effectively.
 
-## Features
+![HealthConnect Dashboard](/frontend/frontend/public/assets/images/analytics.png)
 
-- **Client Management**: Create, update, and search clients by name or phone number
-- **Program Management**: Create and manage healthcare programs
-- **Enrollment**: Enroll clients in programs with unique enrollment IDs
-- **Client Profile**: View client details and enrolled programs via admin panel and API
-- **Authentication**: Secure email and password login with JWT tokens (1-hour expiration)
-- **Security**: Login notifications with IP address and timestamp sent via email
-- **API Documentation**: Interactive Swagger UI at `/swagger/`
+## Demo
 
-## Requirements
+![youtube link](https://youtube.com)
 
-- Python 3.8+
-- Django 4.2.20
-- Django REST Framework
-- djangorestframework-simplejwt
-- drf-yasg
-- django-cors-headers
-- Mailpit (for email testing)
+## Overview
 
-## Setup
+HealthConnect is a user-friendly platform designed specifically for healthcare providers. With an intuitive NextJS frontend and powerful Django backend, this system allows doctors to create custom health programs, securely manage client information, and gain valuable insights through data analytics. The system uses a fully API-based approach, ensuring secure data transmission between the frontend and backend components.
 
-### 1. Clone the Repository
+## Key Features
 
-```bash
-git clone <repository-url>
+### Program Management
+- Admin creates health programs with detailed descriptions and assigns unique short codes
+- Organize and manage all your healthcare programs in one place
+- Access programs quickly using their short code identifiers
+
+### Client Management
+- Register new clients securely through our API
+- Store client information with proper security measures
+- Enroll clients in health programs with unique enrollment IDs based on program short codes
+- Track client progress through various programs
+
+![Client Management Interface](/frontend/frontend/public/assets/images/client.png)
+
+### Security
+- Automated email notifications for login activities to detect suspicious access
+- Secure authentication through Django REST Framework
+- Data encryption for sensitive client information
+- All data transmitted securely through encrypted channels
+
+![Security email](/frontend/frontend/public/assets/images/email.png)
+Client Management Interface
+### Analytics Dashboard
+- View comprehensive client demographics
+- Track client growth metrics
+- Analyze professional distribution data
+- Visualize age distribution through interactive charts
+- Make data-driven decisions to improve healthcare delivery
+
+![Analytics Dashboard](/frontend/frontend/public/assets/images/analytics.png)
+
+## Technical Details
+
+### Frontend
+- Built with React for a responsive and dynamic user interface
+- Interactive data visualization components
+- User-friendly design for healthcare professionals
+
+![Program Creation Interface]
+
+(![Client Management Interface](/frontend/frontend/public/assets/images/programm.png)
+
+### Backend
+- Django framework for robust application structure
+- REST API endpoints for secure data access
+- Authentication and authorization systems
+- Fully API-based approach for all operations
+
+## API Documentation
+
+Our system provides a complete REST API with the following endpoints:
+
+- **Authentication**: 
+  - `/api/admin/login` - Admin authentication
+  - `/api/admin/logout` - End user session
+
+- **Programs**: 
+  - `/api/programs` 
+    - Create, view, update, and delete health programs
+    - Operations on specific programs
+
+- **Clients**: 
+  - `/api/clients` 
+    - Register clients and manage their information
+    - Operations on specific clients
+
+- **Enrollments**: 
+  - `/api/enrollments` 
+    - Enroll clients in programs
+     - Manage specific enrollments
+
+- **Analytics**: 
+  - `/api/analytics` 
+    - Access data insights and statistical information
+     - Client demographic data
+    - Practice growth metrics
+
+Access our Swagger documentation at `/api/docs/` after installation for interactive testing and detailed API specifications.
+
+![API Documentation](/frontend/frontend/public/assets/images/api.png))
+
+## Getting Started
+
+1. Clone the repository:
+```
+git clone https://github.com/Ndegwadavid/CEMA-Health.git
+cd CEMA-Health
+```
+
+2. Set up the backend:
+```
 cd backend
-```
-
-### 2. Create a Virtual Environment
-
-```bash
-python -m venv venv
-source venv/bin/activate  # On Windows: venv\Scripts\activate
-```
-
-### 3. Install Dependencies
-
-```bash
-pip install django==4.2.20 djangorestframework djangorestframework-simplejwt drf-yasg django-cors-headers
-```
-
-### 4. Apply Migrations
-
-```bash
-python manage.py makemigrations
+python -m venv env
+source env/bin/activate
+pip install -r requirements.txt
 python manage.py migrate
-```
-
-### 5. Create a Superuser
-
-```bash
-python manage.py createsuperuser
-```
-
-### 6. Run Mailpit (for Email Testing)
-
-Option 1:
-```bash
-mailpit
-```
-
-Option 2 (Docker):
-```bash
-docker run -p 8025:8025 -p 1025:1025 axllent/mailpit
-```
-
-Access Mailpit UI at http://localhost:8025 to view emails.
-
-### 7. Run the Server
-
-```bash
 python manage.py runserver
 ```
 
-## API Endpoints
-
-### Authentication
-- `POST /api/token/`: Obtain JWT tokens (email, password)
-- `POST /api/admin/login/`: Admin login (email, password, requires is_staff)
-- `POST /api/token/refresh/`: Refresh access token
-- `POST /api/logout/`: Blacklist refresh token (requires JWT)
-
-### Programs
-- `GET/POST /api/programs/`: List or create programs
-- `GET/PUT/DELETE /api/programs/{id}/`: Retrieve, update, or delete a program
-
-### Clients
-- `GET/POST /api/clients/`: List or create clients
-- `GET/PUT/DELETE /api/clients/{id}/`: Retrieve, update, or delete a client
-- `GET /api/clients/search/`: Search clients by name or phone number (`?q=query`)
-- `GET /api/clients/{id}/profile/`: Retrieve client profile with enrollments
-
-### Enrollments
-- `GET/POST /api/enrollments/`: List or create enrollments
-- `GET/PUT/DELETE /api/enrollments/{id}/`: Retrieve, update, or delete an enrollment
-
-## Authentication Guide
-
-Use `/api/admin/login/` or `/api/token/` to obtain JWT tokens:
-
-```bash
-curl -X POST http://localhost:8000/api/admin/login/ \
--H "Content-Type: application/json" \
--d '{"email": "admin@example.com", "password": "securepassword123"}'
+3. Set up the frontend:
+```
+cd ../frontend
+npm install
+npm start
 ```
 
-Include the access token in subsequent requests:
+Visit `http://localhost:3000` to access the application.
 
-```bash
-curl -H "Authorization: Bearer access_token_here" \
-http://localhost:8000/api/clients/
-```
+## Enrollment ID System
 
-## Email Notifications
+The system generates unique enrollment IDs for clients based on the short code of the program they're enrolled in. For example:
 
-- Login events trigger emails with IP address and timestamp
-- View emails at http://localhost:8025 (Mailpit UI)
-- Ensure Mailpit is running on localhost:1025
+- Program with short code "HIV" would generate enrollment IDs like: 
+HIV/2025/W4CMaCid,
+- Program with short code "BTN" would generate enrollment IDs like: 
+BTN/2025/W4CMaCid
 
-## Admin Panel
+This allows for easy identification of which program a client is enrolled in just by looking at their enrollment ID.
 
-- Access at http://localhost:8000/admin (email and password login)
-- Frontend will use `:3000/admin` with `/api/admin/login/`
+## Security Considerations
 
-## Swagger Documentation
+HealthConnect prioritizes data security and patient privacy:
+- All API requests require authentication
+- Sensitive data is encrypted at rest and in transit
+- Login activity monitoring with email notifications
+- Compliance with healthcare data protection standards
+- Secure API-based data transmission
 
-- View interactive API documentation at http://localhost:8000/swagger/
+## Contact
 
-## Frontend Integration
+For questions or support, please open an issue on our [GitHub repository](https://github.com/Ndegwadavid/CEMA-Health).
 
-- **CORS**: Configured for http://localhost:3000
-- **Login**: Use `/api/admin/login/` to authenticate
-- **API Requests**: Include JWT token in `Authorization: Bearer` header
+## License
 
-## Troubleshooting
-
-### Emails Not Sending
-1. Check Mailpit UI (http://localhost:8025) and terminal for errors (`Email sending failed: ...`)
-2. Test Mailpit:
-   ```python
-   python manage.py shell
-   from django.core.mail import send_mail
-   send_mail('Test Subject', 'Test Message', 'no-reply@healthcare.local', ['test@example.com'], fail_silently=False)
-   ```
-
-### Login Issues
-- Ensure superuser has `is_staff=True` and correct email
-
-## Production Notes
-
-- Set `DEBUG = False`
-- Enable HTTPS:
-  ```python
-  SECURE_SSL_REDIRECT = True
-  SESSION_COOKIE_SECURE = True
-  CSRF_COOKIE_SECURE = True
-  ```
-- Use a real SMTP server (e.g., Gmail, SendGrid) instead of Mailpit
+[MIT License](LICENSE)

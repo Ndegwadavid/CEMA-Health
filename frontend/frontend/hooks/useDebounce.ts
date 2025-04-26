@@ -1,24 +1,26 @@
 // hooks/useDebounce.ts
-import { useEffect, useState } from "react";
-import { debounce } from "lodash";
+import { useState, useEffect } from "react"
 
-function useDebounce<T>(value: T, delay: number): T {
-  const [debouncedValue, setDebouncedValue] = useState<T>(value);
+/**
+ * A custom hook that returns a debounced value after a specified delay
+ * @param value The value to be debounced
+ * @param delay The delay in milliseconds
+ * @returns The debounced value
+ */
+export default function useDebounce<T>(value: T, delay: number): T {
+  const [debouncedValue, setDebouncedValue] = useState<T>(value)
 
   useEffect(() => {
-    const debounced = debounce((newValue: T) => {
-      setDebouncedValue(newValue);
-    }, delay);
+    // Set a timeout to update the debounced value after the specified delay
+    const timer = setTimeout(() => {
+      setDebouncedValue(value)
+    }, delay)
 
-    debounced(value);
-
-    // Cleanup: Cancel debounce on unmount or value change
+    // Clean up the timeout if the value changes before the delay expires
     return () => {
-      debounced.cancel();
-    };
-  }, [value, delay]);
+      clearTimeout(timer)
+    }
+  }, [value, delay])
 
-  return debouncedValue;
+  return debouncedValue
 }
-
-export default useDebounce;

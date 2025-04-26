@@ -1,3 +1,4 @@
+# backend/clients/views.py
 from rest_framework import viewsets
 from rest_framework.decorators import action
 from rest_framework.response import Response
@@ -36,4 +37,17 @@ class ClientViewSet(viewsets.ModelViewSet):
 
 class EnrollmentViewSet(viewsets.ModelViewSet):
     queryset = Enrollment.objects.all()
-    serializer_class = EnrollmentCreateSerializer
+
+    def get_serializer_class(self):
+        if self.action in ['create']:
+            return EnrollmentCreateSerializer
+        return EnrollmentSerializer
+
+    def create(self, request, *args, **kwargs):
+        serializer = self.get_serializer(data=request.data)
+        try:
+            serializer.is_valid(raise_exception=True)
+            self.perform_create(serializer)
+            return Response(serializer.data, status=201)
+        except serializers.ValidationError as e:
+            return Response({"detail": e.detail}, status=400)

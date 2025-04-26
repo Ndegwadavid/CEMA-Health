@@ -113,7 +113,7 @@ DEFAULT_FROM_EMAIL = 'no-reply@healthcare.local'
 
 # CORS
 CORS_ALLOWED_ORIGINS = [
-    'http://localhost:3000',
+    'http://localhost:3000'
 ]
 
 # Security settings for production

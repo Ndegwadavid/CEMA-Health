@@ -19,3 +19,5 @@ class CustomTokenObtainPairSerializer(TokenObtainPairSerializer):
     def user_authentication(self, credentials):
         from django.contrib.auth import authenticate
         return authenticate(**credentials)
+    
+    
